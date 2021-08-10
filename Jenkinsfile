@@ -7,23 +7,22 @@ pipeline {
     }
  stages {
       stage('checkout') {
-           steps {
-             
-                git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
-             
+          steps {
+              
+               git credentialsId: '297fe23e-6382-49f0-8d2a-5b588f77f62c', url: 'https://github.com/gitvivekraj/firstmaven.git'
           }
         }
   stage('Execute Maven') {
            steps {
              
-                sh 'mvn package'             
+                bat 'mvn package'             
           }
         }
    stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t samplewebapp:latest .' 
-                sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
+                bat 'docker build -t calculator:latest .' 
+                bat 'docker tag calculator dockervivek3010/calculator:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -33,7 +32,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push nikhilnidhi/samplewebapp:latest'
+          bat  'docker push dockervivek3010/calculator:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -44,16 +43,16 @@ pipeline {
              
             steps 
    {
-                sh "docker run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+                bat "docker run -d -p 8003:8080 dockervivek3010/calculator"
  
             }
         }
- stage('Run Docker container on remote hosts') {
+//  stage('Run Docker container on remote hosts') {
              
-            steps {
-                sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+//             steps {
+//                 sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
  
-            }
-        }
+//             }
+//         }
     }
  }
