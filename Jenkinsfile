@@ -15,7 +15,7 @@ pipeline {
   stage('Execute Maven') {
            steps {
              
-                bat 'mvn package'             
+                bat 'mvn clean install -f Calculator/pom.xml'             
           }
         }
    stage('Docker Build and Tag') {
