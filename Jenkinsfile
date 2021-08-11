@@ -1,10 +1,5 @@
 pipeline {
     agent any
- 
-//    tools
-//     {
-//        maven "MAVEN_HOME"
-//     }
     
  stages {
      
@@ -29,8 +24,8 @@ pipeline {
    stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t calculator:latest .' 
-                sh 'docker tag calculator dockervivek3010/calculator:latest'
+                sh 'docker build -t Calculator:latest .' 
+                sh 'docker tag Calculator dockervivek3010/Calculator:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -51,7 +46,7 @@ pipeline {
              
             steps 
    {
-                sh "docker run -d -p 8003:8080 dockervivek3010/calculator"
+                sh "docker run -d -p 8003:8080 dockervivek3010/Calculator"
  
             }
         }
