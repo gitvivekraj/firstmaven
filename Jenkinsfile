@@ -23,14 +23,14 @@ pipeline {
   stage('Execute Maven') {
            steps {
              
-                bat 'mvn clean install -f Calculator/pom.xml'             
+                sh 'mvn clean install -f Calculator/pom.xml'             
           }
         }
    stage('Docker Build and Tag') {
            steps {
               
-                bat 'docker build -t calculator:latest .' 
-                bat 'docker tag calculator dockervivek3010/calculator:latest'
+                sh 'docker build -t calculator:latest .' 
+                sh 'docker tag calculator dockervivek3010/calculator:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -40,7 +40,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          bat  'docker push dockervivek3010/calculator:latest'
+          sh  'docker push dockervivek3010/calculator:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -51,7 +51,7 @@ pipeline {
              
             steps 
    {
-                bat "docker run -d -p 8003:8080 dockervivek3010/calculator"
+                sh "docker run -d -p 8003:8080 dockervivek3010/calculator"
  
             }
         }
