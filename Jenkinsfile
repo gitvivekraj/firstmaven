@@ -24,8 +24,8 @@ pipeline {
    stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t Calculator:latest .' 
-                sh 'docker tag Calculator dockervivek3010/firstdockerhubrepo:latest'
+                sh 'docker build -t firstdockerhubrepo:latest .' 
+                sh 'docker tag firstdockerhubrepo dockervivek3010/firstdockerhubrepo:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
