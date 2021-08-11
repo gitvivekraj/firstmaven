@@ -1,15 +1,23 @@
 pipeline {
     agent any
  
-   tools
-    {
-       maven "MAVEN_HOME"
-    }
+//    tools
+//     {
+//        maven "MAVEN_HOME"
+//     }
+    
  stages {
+     
+     stage('Maven-Version-Check') {
+            steps {
+                sh 'mvn -version'
+            }
+        }
+     
       stage('checkout') {
           steps {
               
-               git credentialsId: '297fe23e-6382-49f0-8d2a-5b588f77f62c', url: 'https://github.com/gitvivekraj/firstmaven.git'
+               git credentialsId: 'Git', url: 'https://github.com/gitvivekraj/firstmaven.git'
           }
         }
   stage('Execute Maven') {
