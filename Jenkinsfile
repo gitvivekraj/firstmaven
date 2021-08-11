@@ -25,7 +25,7 @@ pipeline {
            steps {
               
                 sh 'docker build -t Calculator:latest .' 
-                sh 'docker tag Calculator dockervivek3010/Calculator:latest'
+                sh 'docker tag Calculator dockervivek3010/firstdockerhubrepo:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -35,7 +35,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push dockervivek3010/calculator:latest'
+          sh  'docker push dockervivek3010/firstdockerhubrepo:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -46,16 +46,15 @@ pipeline {
              
             steps 
    {
-                sh "docker run -d -p 8003:8080 dockervivek3010/Calculator"
+                sh "docker run -d -p 8003:8080 dockervivek3010/firstdockerhubrepo"
  
             }
         }
-//  stage('Run Docker container on remote hosts') {
-             
-//             steps {
-//                 sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+  stage('Run Docker container on remote hosts') {
+              steps {
+                 sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 dockervivek3010/firstdockerhubrepo"
  
-//             }
-//         }
+             }
+         }
     }
  }
