@@ -9,13 +9,13 @@ pipeline {
             }
         }
      
-      stage('checkout') {
+      stage('git-clone') {
           steps {
               
                git credentialsId: 'Git', url: 'https://github.com/gitvivekraj/firstmaven.git'
           }
         }
-  stage('Execute Maven') {
+  stage('Maven-Build') {
            steps {
              
                 sh 'mvn clean install -f Calculator/pom.xml'             
@@ -29,7 +29,7 @@ pipeline {
           }
         }
      
-  stage('Publish image to Docker Hub') {
+  stage('Publish image to DockerHub') {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
