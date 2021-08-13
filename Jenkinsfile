@@ -43,7 +43,7 @@ pipeline {
              
             steps 
    {
-                sh "docker run -d --name calculator -p 8010:8070 dockervivek3010/firstdockerhubrepo"
+                sh "docker run -d --name calculator_new -p 8010:8070 dockervivek3010/firstdockerhubrepo"
  
             }
         }
